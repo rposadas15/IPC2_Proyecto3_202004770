@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>IPC2_Proyecto3_202004770</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
+        <nav id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#page-top">Proyecto #3</a></li>
+                <li class="sidebar-nav-item"><a href="#page-top">Inicio</a></li>
+                <li class="sidebar-nav-item"><a href="#about">Carga de Archivos</a></li>
+                <li class="sidebar-nav-item"><a href="#services">Peticiones</a></li>
+                <li class="sidebar-nav-item"><a href="#callout">Previsualización de XML</a></li>                
+                <li class="sidebar-nav-item"><a href="#IVA">Resumen de IVA</a></li>
+                <li class="sidebar-nav-item"><a href="#FECHAS">Resumen por Fechas</a></li>
+                <li class="sidebar-nav-item"><a href="#portfolio">Estructura</a></li>
+                <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- Header-->
+        <header class="masthead d-flex align-items-center">
+            <div class="container px-4 px-lg-5 text-center">
+                <h1 class="mb-1">Introduccion a la Progrmacion y Computacion 2</h1>
+                <h3 class="mb-5"><em>Ronaldo Javier Posadas Guerra - 202004770</em></h3>
+                <a class="btn btn-primary btn-xl" href="#about">Proyecto #3</a>
+            </div>
+        </header>
+        <!-- About-->
+        <section class="content-section bg-light" id="about">
+            <div class="container px-4 px-lg-5 text-center">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-10">
+                        <h2>Carga de Archivos</h2>
+                        <p class="lead mb-5">
+                            En este apartado se pueden cargar los archivos XML para posteriormente ser procesados.
+                        </p>
+                        <a class="btn btn-dark btn-xl">Cargar Documentos XML</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services-->
+        <section class="content-section bg-primary text-white text-center" id="services">
+            <div class="container px-4 px-lg-5">
+                <div class="content-section-heading">
+                    <h3 class="text-secondary mb-0">Peticiones</h3>
+                    <h2 class="mb-5">Las eticiones son las siguientes</h2>
+                </div>                
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
+                        <a href="#callout" class="btn btn-primary"><h4><strong>Consultar Informacion</strong></h4></a>
+                        <p class="text-faded mb-0">Consulta los datos de los Archivos XML y se muestran en pantalla</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-mustache"></i></span>
+                        <a href="#portfolio" class="btn btn-primary"><h4><strong>Resumen de IVA</strong></h4></a>
+                        <p class="text-faded mb-0">Grafica de NIT por Fecha especificada</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-like"></i></span>
+                        <a href="#contact" class="btn btn-primary"><h4><strong>Resumen por Fechas</strong></h4></a>
+                        <p class="text-faded mb-0">Grafica por rango de Fechas</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-pencil"></i></span>
+                        <button type="button" class="btn btn-primary"><h4><strong>Reporte en PDF</strong></h4></button>
+                        <p class="text-faded mb-0">Crea un archivo PDF con los datos de las peticiones anteriores</p>
+                    </div>                    
+                </div>
+            </div>
+        </section>
+        <!-- Callout-->
+        <section class="callout" id="callout">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mx-auto mb-5">Previsualización de la Informacion</h2>
+                <div class="row gx-0">
+                    <div class="col-lg-6">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Entrada" id="entrada"></textarea>
+                            <label for="entrada">Archivo XML (Entrada)</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Salida" id="salida"></textarea>
+                            <label for="salida">Archivo XML (Salida)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        
+        <!-- IVA -->
+        <section class="content-section bg-primary text-white" id="IVA">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mb-4">Resumen de IVA</h2>
+                
+            </div>
+        </section>
+        <!-- Fechas-->        
+        <section class="content-section bg-light" id="FECHAS">
+            <div class="container px-4 px-lg-5 text-center">                
+                <h2 class="mb-4">Resumen por Fechas</h2>
+
+            </div>
+        </section>
+        <!-- Portfolio-->
+        <section class="content-section" id="portfolio">
+            <div class="container px-4 px-lg-5">
+                <div class="content-section-heading text-center">
+                    <h3 class="text-secondary mb-0">Estructura del Programa</h3>
+                    <h2 class="mb-5">Backend - Fronted</h2>
+                </div>
+                <div class="row gx-0">
+                    <div class="col-lg-6">
+                        <a class="portfolio-item" href="#!">
+                            <div class="caption">
+                                <div class="caption-content">
+                                    <div class="h2">Backend</div>
+                                    <p class="mb-0">Es la parte que se conecta con la base de datos y el servidor que utiliza dicho sitio web</p>
+                                </div>
+                            </div>
+                            <img class="img-fluid" src="assets/img/Backend.png" alt="..." />
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="portfolio-item" href="#!">
+                            <div class="caption">
+                                <div class="caption-content">
+                                    <div class="h2">Fronted</div>
+                                    <p class="mb-0">Es la parte de un sitio web que interactúa con los usuarios, por eso decimos que está del lado del cliente. </p>
+                                </div>
+                            </div>
+                            <img class="img-fluid" src="assets/img/Fronted.png" alt="..." />
+                        </a>
+                    </div>                    
+                </div>
+            </div>
+        </section>
+        <!-- Map-->        
+        <div class="map" id="contact">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15445.674467578156!2d-90.57075199999998!3d14.5752064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sgt!4v1633489431819!5m2!1ses!2sgt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>        
+        <!-- Footer-->
+        <footer class="footer text-center">
+            <h2>Contacto</h2>
+            <h4>Ronaldo Javier Posadas Guerra</h4>
+            <h4>202004770</h4>
+            <h4>02/11/2021</h4>
+            <div class="container px-4 px-lg-5">
+                <ul class="list-inline mb-5">
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white mr-3" href="https://www.facebook.com/javier.posadas.09"><i class="icon-social-facebook"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white mr-3" href="https://twitter.com/rposadas_15"><i class="icon-social-twitter"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white" href="https://www.instagram.com/rposadas_15/"><i class="icon-social-instagram"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white" href="https://github.com/rposadas15/IPC2_Proyecto3_202004770"><i class="icon-social-github"></i></a>
+                    </li>
+                </ul>
+                <p class="text-muted small mb-0">Copyright &copy; Your Website 2021</p>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script>
+            function EnviarCorreo(){
+              alert("Tu mensaje a sido enviado. Gracias!")
+            }
+          </script>
+    </body>
+</html>
