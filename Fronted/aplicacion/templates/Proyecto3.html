@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Proyecto 3</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../static/assets/css/main.css"/>
+		<noscript><link rel="stylesheet" href="../static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<h1>SAT</h1>
+				<nav>
+					<ul>
+						<li><a href="#intro">Inicio</a></li>
+						<li><a href="#one">Cargar de Archivos</a></li>
+						<li><a href="#two">Peticiones</a></li>
+						<li><a href="#work">Visualizar Info</a></li>
+						<li><a href="#contact">Contacto</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Inicio -->
+			<section id="intro" class="main style1 dark fullscreen">
+				<div class="content">
+					<header>
+						<h2>Introduccion a la Programacion y Computacion 2</h2>
+					</header>
+					<p>Ronaldo Javier Posadas Guerra<strong>202004770</strong></p>
+					<footer>
+						<a href="#one" class="button style2 down">More</a>
+					</footer>
+				</div>
+			</section>
+
+		<!-- One -->
+			<section id="one" class="main style2 right dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Carga de Archivos</h2>
+					</header>
+					<p>En este apartado se pueden cargar los archivos XML para posteriormente ser procesados.</p>
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<input type="file" name="archivo" id="archivo" accept="text/xml">
+						<br>
+						<input type="submit" value="EnviarXML" id="EnviarXML"></input>
+					</form>
+				</div>
+				<a href="#two" class="button style2 down anchored">Next</a>
+			</section>
+
+		<!-- Two -->
+			<section id="two" class="main style2 left dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Peticiones</h2>
+					</header>
+					<a href="#work" ><h4><strong>Consultar Informacion</strong></h4></a>
+					<br>
+					<a href="#work" ><h4><strong>Resumen de IVA</strong></h4></a>
+					<br>
+					<a href="#work" ><h4><strong>Resumen por Fechas</strong></h4></a>
+					<br>
+					<input type="submit" value="Reporte PDF" id="Reporte PDF"></input>
+				</div>
+				<a href="#work" class="button style2 down anchored">Next</a>
+			</section>
+
+		<!-- Work -->
+			<section id="work" class="main style3 primary">
+				<div class="content">
+					<header>
+						<h2>Informacion del Archivo XML</h2>						
+					</header>
+
+					<div class="box">
+						<header>
+							<h2>Archivo de Entrada</h2>
+						</header>
+						<textarea disabled> {{ data.Mensaje }} </textarea>
+					</div>
+					<div class="box">
+						<header>
+							<h2>Archivo de Salida</h2>
+						</header>
+						<textarea disabled></textarea>
+					</div>
+					<div class="box">
+						<header>
+							<h2>Resumen por IVA</h2>
+						</header>
+					</div>
+					<div class="box">
+						<header>
+							<h2>Resumen por Fechas</h2>
+						</header>
+					</div>
+				</div>
+			</section>
+
+		<!-- Contact -->
+			<section id="contact" class="main style3 secondary">
+				<div class="content">
+					<header>
+						<h2>Ronaldo Posadas</h2>
+						<p>En este apartdo se muestra la informacion de la persona encargada en realizar el Proyecto.</p>
+					</header>
+					<div class="box">
+						
+					</div>
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+
+				<!-- Icons -->
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon brands fa-pinterest"><span class="label">Pinterest</span></a></li>
+					</ul>
+
+				<!-- Menu -->
+					<ul class="menu">
+						<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+					</ul>
+
+			</footer>
+
+		<!-- Scripts -->
+			<script src="../static/assets/js/jquery.min.js"></script>
+			<script src="../static/assets/js/jquery.poptrox.min.js"></script>
+			<script src="../static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="../static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="../static/assets/js/browser.min.js"></script>
+			<script src="../static/assets/js/breakpoints.min.js"></script>
+			<script src="../static/assets/js/util.js"></script>
+			<script src="../static/assets/js/main.js"></script>
+
+	</body>
+</html>
