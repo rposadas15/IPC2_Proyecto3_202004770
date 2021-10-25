@@ -1,16 +1,22 @@
 class Datos:
 
-    def __init__(self, errorNE, errorNR, iva, total, duplicadoRef, facturasC, facturasE, facturasR):
+    def __init__(self, fecha, errorNE, errorNR, iva, total, duplicadoRef, totalFac, facturasC, facturasE, facturasR):
+        self.fecha = fecha
         self.errorNE = errorNE
         self.errorNR = errorNR
         self.iva = iva
         self.total = total
         self.duplicadoRef = duplicadoRef
+        self.totalFac = totalFac
         self.facturasC = facturasC
         self.facturasE = facturasE
         self.facturasR = facturasR
+        self.tamaño = []
     
     #Get
+    def getFecha(self):
+        return self.fecha
+
     def getErrorNE(self):
         return self.errorNE
 
@@ -26,6 +32,9 @@ class Datos:
     def getDuplicadoRef(self):
         return self.duplicadoRef
 
+    def getTotalFac(self):
+        return self.totalFac
+
     def getFacturasC(self):
         return self.facturasC
 
@@ -35,7 +44,14 @@ class Datos:
     def getFacturasR(self):
         return self.facturasR
 
+    def getTamaño(self):
+        for a in self.tamaño:
+            print(a)
+
     #Set
+    def setFecha(self, fecha):
+        self.fecha = fecha
+
     def setErrorNE(self, errorNE):
         self.errorNE = errorNE
 
@@ -50,6 +66,9 @@ class Datos:
 
     def setDuplicadoRef(self, duplicadoRef):
         self.duplicadoRef = duplicadoRef
+
+    def setTotalFac(self, totalFac):
+        self.totalFac = totalFac
 
     def setFacturasC(self, facturasC):
         self.facturasC = facturasC
