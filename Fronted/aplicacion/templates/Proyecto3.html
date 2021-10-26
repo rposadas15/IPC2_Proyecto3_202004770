@@ -15,10 +15,10 @@
 				<nav>
 					<ul>
 						<li><a href="#intro">Inicio</a></li>
-						<li><a href="#one">Cargar de Archivos</a></li>
+						<li><a href="#one">Cargar de Archivo</a></li>
 						<li><a href="#two">Peticiones</a></li>
-						<li><a href="#work">Visualizar Info</a></li>
-						<li><a href="#contact">Contacto</a></li>
+						<li><a href="#work">Visualizar Informacion</a></li>
+						<li><a href="#contact">Ayuda</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -40,9 +40,9 @@
 			<section id="one" class="main style2 right dark fullscreen">
 				<div class="content box style2">
 					<header>
-						<h2>Carga de Archivos</h2>
+						<h2>Carga de Archivo</h2>
 					</header>
-					<p>En este apartado se pueden cargar los archivos XML para posteriormente ser procesados.</p>
+					<p>En este apartado se puede cargar un archivo XML para posteriormente ser procesados.</p>
 					<form method="POST" enctype="multipart/form-data">
 						{% csrf_token %}
 						<input type="file" name="archivo" id="archivo" accept="text/xml">
@@ -65,7 +65,9 @@
 					<br>
 					<a href="#work" ><h4><strong>Resumen por Fechas</strong></h4></a>
 					<br>
-					<input type="submit" value="Reporte PDF" id="Reporte PDF"></input>
+					<button onclick="PDF()" type="button" ">Reporte de Salida</button>
+					<button onclick="PDF_IVA()" type="button" ">Reporte Grafica IVA</button>
+					<button onclick="PDF_Fechas()" type="button" ">Reporte Grafica por Fechas PDF</button>
 				</div>
 				<a href="#work" class="button style2 down anchored">Next</a>
 			</section>
@@ -81,23 +83,45 @@
 						<header>
 							<h2>Archivo de Entrada</h2>
 						</header>
-						<textarea disabled> {{ data.Mensaje }} </textarea>
+						{% if data.Mensaje == "Aun no se ha ingresado un archivo XML" %}
+							<p> {{data.Mensaje }} </p>
+						{% else %}
+							{% for a in data.Mensaje %}
+								<p> {{ a }} </p>
+							{% endfor %}
+						{% endif %}
 					</div>
-					<div class="box">
+					<div class="box" id="pdf">
 						<header>
 							<h2>Archivo de Salida</h2>
 						</header>
-						<textarea disabled></textarea>
+						{% if data.Mensaje2 == "Esperando archivo de entrada" %}
+							<p> {{data.Mensaje2 }} </p>
+						{% else %}
+							{% for a in data.Mensaje2 %}
+								<p> {{ a }} </p>
+							{% endfor %}
+						{% endif %}
 					</div>
-					<div class="box">
+					<div class="box" id="pdf_IVA">
 						<header>
 							<h2>Resumen por IVA</h2>
+							<select id="grafica_iva_inicio" name="grafica_iva_inicio" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<br>
+							<select id="grafica_iva_fin" name="grafica_iva_fin" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<button type="button" ">Crear Grafica</button>
+							
 						</header>
 					</div>
-					<div class="box">
+					<div class="box" id="pdf_Fechas">
 						<header>
 							<h2>Resumen por Fechas</h2>
+							<select id="grafica_fechas_inicio" name="grafica_fechas_inicio" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<br>
+							<select id="grafica_fechas_fin" name="grafica_fechas_fin" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<button type="button" ">Crear Grafica</button>
 						</header>
+						
 					</div>
 				</div>
 			</section>
@@ -110,7 +134,10 @@
 						<p>En este apartdo se muestra la informacion de la persona encargada en realizar el Proyecto.</p>
 					</header>
 					<div class="box">
-						
+						<a href="https://rposadas15.github.io/">Informacion del Estudiante</a>
+						<a href="">Ver Documentacion</a>
+						<br>
+						<button type="button" ">Resetear Informacion</button>
 					</div>
 				</div>
 			</section>
@@ -142,6 +169,58 @@
 			<script src="../static/assets/js/breakpoints.min.js"></script>
 			<script src="../static/assets/js/util.js"></script>
 			<script src="../static/assets/js/main.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+  			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+			<script>
+				function PDF(){
+				  	html2canvas($('#pdf')[0], {
+						onrendered: function (canvas) {
+							var data = canvas.toDataURL();
+							var docDefinition = {
+								content: [{
+									image: data,
+									width: 500
+								}]
+							};
+							pdfMake.createPdf(docDefinition).download("PDF_Salida.pdf");
+						}
+					});
+				}
+			</script>
+			<script>
+			function PDF_IVA(){
+				html2canvas($('#pdf_IVA')[0], {
+					onrendered: function (canvas) {
+						var data = canvas.toDataURL();
+						var docDefinition = {
+							content: [{
+								image: data,
+								width: 500
+							}]
+						};
+						pdfMake.createPdf(docDefinition).download("PDF_Grafica_IVA.pdf");
+					}
+				});
+			}
+			</script>
+			<script>
+			function PDF_Fechas(){
+				html2canvas($('#pdf_Fechas')[0], {
+					onrendered: function (canvas) {
+						var data = canvas.toDataURL();
+						var docDefinition = {
+							content: [{
+								image: data,
+								width: 500
+							}]
+						};
+						pdfMake.createPdf(docDefinition).download("PDF__Grafica_Fechas.pdf");
+					}
+				});
+			}
+			</script>
 
 	</body>
 </html>

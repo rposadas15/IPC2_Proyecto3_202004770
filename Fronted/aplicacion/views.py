@@ -13,7 +13,12 @@ def Pagina(request):
         return render(request, 'Proyecto3.html', context)
 
     elif request.method == 'POST':
-        document = request.FILES['archivo'].read()
+        document = str(request.FILES['archivo'].read())
+
+        document = document.replace("b'", "")
+        document = document.replace("'", "")
+        document = document.replace("\\r\\n", "")
+
         data = {'direc': str(document)}
         direccion = puerto.format('/Facturas')
         requests.post(direccion, json=data)

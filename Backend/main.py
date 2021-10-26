@@ -15,42 +15,42 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origin": "*"}})
 
 puerto = ''
+puerto2 = ''
 
 #FACTURAS
 @app.route('/Facturas', methods=['GET'])
 def ObtenerFacturas():
     global puerto
-    if puerto != '':
+    if puerto != '' and puerto2 != '':
         nuevo_doc = open(puerto, 'r')
-        data = nuevo_doc.read()
+        data = nuevo_doc.readlines()
         nuevo_doc.close()
-        return(jsonify({"Mensaje": data}))
+
+        nuevo_doc2 = open(puerto2, 'r')
+        data2 = nuevo_doc2.readlines()
+        nuevo_doc2.close()
+
+        return(jsonify({"Mensaje": data, "Mensaje2": data2}))
     else:
-        return(jsonify({"Mensaje": "Aun no se ha ingresado un archivo XML"}))
+        return(jsonify({"Mensaje": "Aun no se ha ingresado un archivo XML", "Mensaje2": "Esperando archivo de entrada"}))
 
 @app.route('/Facturas', methods=['POST'])
 def CrearFacturas():
     global puerto
     puerto = 'facturas.xml'
+    
     direccion = request.json['direc']
     mismo_doc = open(puerto, 'w')
     data = str(direccion)
-    data = data.replace("b'", "")
-    #data = data.replace('\r', '')
-    #data = data.replace('\n', '')
-    #data = data.replace('\t', '')
-    data = data.replace("'", "")
     mismo_doc.write(data)
     mismo_doc.close()
-    #NUEVO XML
-    nuevo_doc = open(puerto, 'r')
-    nueva_data = nuevo_doc.read()
-    nuevo_doc.close()
+    
     #SALIDA XML
     informacion = LeerXML(puerto)
     SeparDatos(informacion)
     Salida()
-    return (jsonify({"Mensaje": nueva_data}))
+    
+    return (jsonify({"Mensaje": "Archivo Cargado Correctamente"}))
 
 def LeerXML(ruta):
     mytree = ET.parse(ruta)
@@ -232,7 +232,9 @@ def Fecha(valor, fecha):
 def Salida():
     global datos_salida
     global facturas_correctas
-    
+    global puerto2
+    puerto2 = 'autorizaciones.xml'
+
     root = ET.Element('LISTA_AUTORIZACIONES')
     for a in range(len(datos_salida)):
         doc1 = ET.SubElement(root, 'AUTORIZACION')
@@ -276,6 +278,11 @@ def Aprobacion(fecha):
         apro += a
     
     return apro
+
+#GFAFICAS
+@app.route('/Grafica', methods=['GET'])
+def ObtenerGrafica():
+    pass
 
 if __name__ == "__main__":    
     app.run(host = "0.0.0.0", port = 3000, debug = True)
