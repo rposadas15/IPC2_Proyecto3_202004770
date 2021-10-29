@@ -67,12 +67,11 @@ function Resetear(){
         //alert(response.Mensaje)
         })
         location.reload()
-    }
+}
 
 //Combo box de Fechas
 function ComboBox(){
-    var opciones_inicio_i = document.querySelector('#grafica_iva_inicio')
-    var opciones_fin_i = document.querySelector('#grafica_iva_fin')
+    var opciones_inicio_i = document.querySelector('#grafica_iva')
     var opciones_inicio_f = document.querySelector('#grafica_fechas_inicio')
     var opciones_fin_f = document.querySelector('#grafica_fechas_fin')
     var cadena = ''
@@ -89,14 +88,121 @@ function ComboBox(){
     })
     .then(response =>{
         console.log(response);
-        response.forEach(element => {              
+        response.forEach(element => {
                 cadena += `<option>
                     ${element.Fecha}
                     </option>`
-        });        
+        });
         opciones_inicio_f.innerHTML = cadena
         opciones_fin_f.innerHTML = cadena
         opciones_inicio_i.innerHTML = cadena
-        opciones_fin_i.innerHTML = cadena
     })
-  }
+}
+
+//Grafica Fechas
+function CrearGraficasFechas(){
+    var FechaInicio = document.querySelector('#grafica_fechas_inicio').value
+    var FechaFin = document.querySelector('#grafica_fechas_fin').value
+    //console.log(FechaInicio, FechaFin)
+    var Fechas = []
+    var Totales = []
+    var IVA = []
+
+    objeto = {
+        'Inicio': FechaInicio,
+        'Fin': FechaFin
+    }
+
+    fetch(`http://localhost:3000/Fechas`, {
+    method: 'POST',
+    body: JSON.stringify(objeto),
+    headers:{
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',}})
+    .then(res => res.json())
+    .catch(err => {
+        console.error('Error:', err)
+        alert("Ocurrio un error, ver la consola")
+    })
+    .then(response =>{
+        console.log(response);
+        response.forEach(element => {
+            //console.log(element.Fecha, element.Total, element.SinIVA)
+            Fechas.push(element.Fecha)
+            Totales.push(element.Total)
+            IVA.push(element.SinIVA)
+        })
+        GenerarGrafica(Fechas, Totales, IVA)
+    })
+}
+    
+function GenerarGrafica(Fe, To, IVA){
+    var trace1 = {
+    x: Fe,
+    y: IVA,
+    name: 'Sin Iva',
+    type: 'bar'
+    };
+    var trace2 = {
+    x: Fe,
+    y: To,
+    name: 'Total',
+    type: 'bar'
+    };					
+    var data_info = [trace1, trace2];
+    var bordes = {barmode: 'group'};
+    Plotly.newPlot('GraficaFechas', data_info, bordes);
+}
+
+//Grafica IVA
+function CrearGraficasIVA(){
+    var FechaInicio = document.querySelector('#grafica_iva').value
+    //console.log(FechaInicio, FechaFin)
+    var NIT = []
+    var Totales = []
+    var IVA = []
+
+    objeto = {
+        'Fecha': FechaInicio,
+    }
+
+    fetch(`http://localhost:3000/IVA`, {
+    method: 'POST',
+    body: JSON.stringify(objeto),
+    headers:{
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',}})
+    .then(res => res.json())
+    .catch(err => {
+        console.error('Error:', err)
+        alert("Ocurrio un error, ver la consola")
+    })
+    .then(response =>{
+        console.log(response);
+        response.forEach(element => {
+            //console.log(element.Nit, element.Total, element.Valor_IVA)
+            NIT.push(element.Nit)
+            Totales.push(element.Total)
+            IVA.push(element.Valor_IVA)
+        })
+        GenerarGrafica2(NIT, Totales, IVA)
+    })
+}
+
+function GenerarGrafica2(Nit, To, IVA){
+    var trace1 = {
+    x: Nit,
+    y: IVA,
+    name: 'Iva Emitido',
+    type: 'bar'
+    };
+    var trace2 = {
+    x: Nit,
+    y: To,
+    name: 'Total',
+    type: 'bar'
+    };					
+    var data_info_2 = [trace1, trace2];
+    var bordes_2 = {barmode: 'group'};
+    Plotly.newPlot('GraficaIVA', data_info_2, bordes_2);
+}

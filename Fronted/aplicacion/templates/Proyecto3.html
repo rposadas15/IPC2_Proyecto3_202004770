@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
+	<head>		
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 		<title>Proyecto 3</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -106,23 +107,22 @@
 					<div class="box" id="pdf_IVA">
 						<header>
 							<h2>Resumen por IVA</h2>
-							<select id="grafica_iva_inicio" name="grafica_iva_inicio" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
+							<select id="grafica_iva" name="grafica_iva" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
 							<br>
-							<select id="grafica_iva_fin" name="grafica_iva_fin" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
-							<button type="button" ">Crear Grafica</button>
-							
-						</header>
+							</header>
+						<div id='GraficaIVA', data_info_2></div>
 					</div>
+					<button type="button" onclick="CrearGraficasIVA()">Crear Grafica</button>
 					<div class="box" id="pdf_Fechas">
 						<header>
 							<h2>Resumen por Fechas</h2>
 							<select id="grafica_fechas_inicio" name="grafica_fechas_inicio" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
 							<br>
 							<select id="grafica_fechas_fin" name="grafica_fechas_fin" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
-							<button type="button" ">Crear Grafica</button>
 						</header>
-						
+						<div id='GraficaFechas', data_info></div>
 					</div>
+					<button type="button" onclick="CrearGraficasFechas()">Crear Grafica</button>
 				</div>
 			</section>
 
@@ -174,6 +174,6 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
   			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 			<script src="../static/js/funciones.js"></script>
-
+			
 	</body>
 </html>

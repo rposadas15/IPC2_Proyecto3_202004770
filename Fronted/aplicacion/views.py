@@ -18,6 +18,7 @@ def Pagina(request):
         document = document.replace("b'", "")
         document = document.replace("'", "")
         document = document.replace("\\r\\n", "")
+        document = document.replace("\\t", "")
 
         data = {'direc': str(document)}
         direccion = puerto.format('/Facturas')

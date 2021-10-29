@@ -1,6 +1,8 @@
+from types import prepare_class
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 import xml.etree.ElementTree as ET
+from datetime import date, datetime
 import re
 
 from Factura import Factura
@@ -245,33 +247,37 @@ def Modulo11(valor, error, bandera):
     aux_nit = aux_nit.replace(' ', '')
     ultimo_valor = aux_nit[-1]
     aux_nit = aux_nit.rstrip(aux_nit[-1])
-    if int(aux_nit) > 0:
-        for dato in aux_nit:
-            nit.append(dato)
-        for dato in reversed(nit):
-            sumatoria += int(dato) * aux_m
-            aux_m += 1
-            if aux_m == 8:
-                aux_m = 2
-        sumatoria = 11 - sumatoria % 11        
-        if sumatoria < 10:            
-            if int(sumatoria) == int(ultimo_valor):
-                bandera = True
-            else:
-                error += 1
-                bandera = False
-        elif sumatoria == 10:
-            if ultimo_valor == 'k' or ultimo_valor == 'K':
-                bandera = True
-            else:
-                error += 1
-                bandera = False
-        elif sumatoria == 11:
-            if int(ultimo_valor) == 0:
-                bandera = True
-            else:
-                error += 1
-                bandera = False
+    if aux_nit.isnumeric():
+        if int(aux_nit) > 0:
+            for dato in aux_nit:
+                nit.append(dato)
+            for dato in reversed(nit):
+                sumatoria += int(dato) * aux_m
+                aux_m += 1
+                if aux_m == 8:
+                    aux_m = 2
+            sumatoria = 11 - sumatoria % 11        
+            if sumatoria < 10:            
+                if int(sumatoria) == int(ultimo_valor):
+                    bandera = True
+                else:
+                    error += 1
+                    bandera = False
+            elif sumatoria == 10:
+                if ultimo_valor == 'k' or ultimo_valor == 'K':
+                    bandera = True
+                else:
+                    error += 1
+                    bandera = False
+            elif sumatoria == 11:
+                if int(ultimo_valor) == 0:
+                    bandera = True
+                else:
+                    error += 1
+                    bandera = False
+    else:
+        error += 1
+        bandera = False
     return error, bandera
 
 def IVA(valor, valor2, iva_mal, bandera):
@@ -370,11 +376,56 @@ def ObtenerGrafica():
     
     for a in range(len(datos_salida)):
         for b in datos_salida[a].tamaño:
-            objeto ={
+            objeto = {
                 'Fecha': b.getDia()
             }
             Datos_Combobox.append(objeto)
     return (jsonify(Datos_Combobox))
 
-if __name__ == "__main__":    
+@app.route('/Fechas', methods=['POST'])
+def CrearGraficasFechas():
+    global facturas_correctas
+    global datos_salida
+    Fechas = []
+    FechaI = request.json['Inicio']
+    FechaF = request.json['Fin']
+    
+    aux_FichaI = datetime.strptime(FechaI, '%d/%m/%Y')
+    aux_FichaF = datetime.strptime(FechaF, '%d/%m/%Y')
+
+    for a in range(len(datos_salida)):
+        aux_total = 0
+        aux_iva = 0
+        aux_FechaA  = datetime.strptime(facturas_correctas[a].getDia(), '%d/%m/%Y')
+        if aux_FichaI <= aux_FechaA and aux_FichaF >= aux_FechaA:
+            for b in datos_salida[a].tamaño:
+                aux_total += float(b.getTotal())
+                aux_iva += float(b.getValor())
+                objeto = {
+                    'Fecha': b.getDia(),
+                    'Total': aux_total,
+                    'SinIVA': aux_iva
+                }
+                Fechas.append(objeto)
+    return (jsonify(Fechas))
+
+@app.route('/IVA', methods=['POST'])
+def CrearGraficasIVA():
+    global facturas_correctas
+    Datos_IVA = []
+    
+    Fecha = request.json['Fecha']
+    
+    for a in range(len(datos_salida)):
+        for b in datos_salida[a].tamaño:
+            if b.getDia() == str(Fecha):
+                objeto = {
+                    'Nit': b.getNitE(),
+                    'Total': b.getTotal(),
+                    'Valor_IVA': b.getIva()
+                }
+                Datos_IVA.append(objeto)
+    return (jsonify(Datos_IVA))
+
+if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 3000, debug = True)
