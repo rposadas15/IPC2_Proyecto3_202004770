@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="../static/assets/css/main.css"/>
 		<noscript><link rel="stylesheet" href="../static/assets/css/noscript.css" /></noscript>
 	</head>
-	<body class="is-preload">
+	<body class="is-preload" onload="ComboBox()">
 
 		<!-- Header -->
 			<header id="header">
@@ -106,9 +106,9 @@
 					<div class="box" id="pdf_IVA">
 						<header>
 							<h2>Resumen por IVA</h2>
-							<select id="grafica_iva_inicio" name="grafica_iva_inicio" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<select id="grafica_iva_inicio" name="grafica_iva_inicio" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
 							<br>
-							<select id="grafica_iva_fin" name="grafica_iva_fin" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<select id="grafica_iva_fin" name="grafica_iva_fin" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
 							<button type="button" ">Crear Grafica</button>
 							
 						</header>
@@ -116,9 +116,9 @@
 					<div class="box" id="pdf_Fechas">
 						<header>
 							<h2>Resumen por Fechas</h2>
-							<select id="grafica_fechas_inicio" name="grafica_fechas_inicio" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<select id="grafica_fechas_inicio" name="grafica_fechas_inicio" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
 							<br>
-							<select id="grafica_fechas_fin" name="grafica_fechas_fin" style="WIDTH: 260px; HEIGHT: 20px"></select>
+							<select id="grafica_fechas_fin" name="grafica_fechas_fin" style="text-align: center; WIDTH: 260px; HEIGHT: 45 px"></select>
 							<button type="button" ">Crear Grafica</button>
 						</header>
 						
@@ -135,9 +135,10 @@
 					</header>
 					<div class="box">
 						<a href="https://rposadas15.github.io/">Informacion del Estudiante</a>
-						<a href="">Ver Documentacion</a>
 						<br>
-						<button type="button" ">Resetear Informacion</button>
+						<iframe src="https://docs.google.com/viewer?srcid=1oDAhzWHAcsZ1EqLpnX7jvOnXIG2Jpd25&pid=explorer&efh=false&a=v&chrome=false&embedded=true" width="300px" height="400px"></iframe>
+						<br>
+						<button type="button" onclick="Resetear()">Resetear Informacion</button>
 					</div>
 				</div>
 			</section>
@@ -172,55 +173,7 @@
 
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
   			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-
-			<script>
-				function PDF(){
-				  	html2canvas($('#pdf')[0], {
-						onrendered: function (canvas) {
-							var data = canvas.toDataURL();
-							var docDefinition = {
-								content: [{
-									image: data,
-									width: 500
-								}]
-							};
-							pdfMake.createPdf(docDefinition).download("PDF_Salida.pdf");
-						}
-					});
-				}
-			</script>
-			<script>
-			function PDF_IVA(){
-				html2canvas($('#pdf_IVA')[0], {
-					onrendered: function (canvas) {
-						var data = canvas.toDataURL();
-						var docDefinition = {
-							content: [{
-								image: data,
-								width: 500
-							}]
-						};
-						pdfMake.createPdf(docDefinition).download("PDF_Grafica_IVA.pdf");
-					}
-				});
-			}
-			</script>
-			<script>
-			function PDF_Fechas(){
-				html2canvas($('#pdf_Fechas')[0], {
-					onrendered: function (canvas) {
-						var data = canvas.toDataURL();
-						var docDefinition = {
-							content: [{
-								image: data,
-								width: 500
-							}]
-						};
-						pdfMake.createPdf(docDefinition).download("PDF__Grafica_Fechas.pdf");
-					}
-				});
-			}
-			</script>
+			<script src="../static/js/funciones.js"></script>
 
 	</body>
 </html>

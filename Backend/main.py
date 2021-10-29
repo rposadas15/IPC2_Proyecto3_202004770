@@ -39,6 +39,7 @@ def CrearFacturas():
     global puerto
     puerto = 'facturas.xml'
     
+    #LEER XML
     direccion = request.json['direc']
     mismo_doc = open(puerto, 'w')
     data = str(direccion)
@@ -49,8 +50,59 @@ def CrearFacturas():
     informacion = LeerXML(puerto)
     SeparDatos(informacion)
     Salida()
-    
+
     return (jsonify({"Mensaje": "Archivo Cargado Correctamente"}))
+
+@app.route('/Facturas', methods=['DELETE'])
+def EliminarFacturas():
+    global puerto
+    global puerto2
+    global facturas_correctas
+    global datos_salida
+
+    #Entrada
+    doc_entrada = open(puerto, 'w')
+    doc_entrada.close()
+
+    #Salida
+    doc_salida = open(puerto2, 'w')
+    doc_salida.close()
+
+    puerto = ''
+    puerto2 = ''
+    facturas_correctas = []
+    datos_salida = []
+
+    '''
+    print('Facturas Reinico')
+    for a in range(len(facturas_correctas)):
+        print(facturas_correctas[a].getDia())
+        print(facturas_correctas[a].getReferencia())
+        print(facturas_correctas[a].getNitE())
+        print(facturas_correctas[a].getNitR())
+        print(facturas_correctas[a].getValor())
+        print(facturas_correctas[a].getIva())
+        print(facturas_correctas[a].getTotal())
+        print(facturas_correctas[a].getEstado())
+        print('---')
+
+    print('Errores Reinicio')
+    for a in range(len(datos_salida)):        
+        print(datos_salida[a].getFecha(), 'fecha')
+        print(datos_salida[a].getErrorNE(), 'error NE')
+        print(datos_salida[a].getErrorNR(), 'error NR')
+        print(datos_salida[a].getIva(), 'iva')
+        print(datos_salida[a].getTotal(), 'total')
+        print(datos_salida[a].getDuplicadoRef(), 'ref duplicada')
+        print(datos_salida[a].getTotalFac(), 'total facturas')
+        print(datos_salida[a].getFacturasC(), 'facturas correctas')
+        print(datos_salida[a].getFacturasE(), 'factuas NIT_E diferentes')
+        print(datos_salida[a].getFacturasR(), 'factuas NIT_R diferentes')
+        for b in datos_salida[a].tamaño:
+            print(b.getDia(), 'tamaño')
+        print('---')
+    '''
+    return jsonify({'Mensaje':'Se reincio el programa, puede iniciar de nuevo'})
 
 def LeerXML(ruta):
     mytree = ET.parse(ruta)
@@ -154,6 +206,36 @@ def SeparDatos(data):
                     datos_salida[a].setFacturasR(str(int(datos_salida[a].getFacturasR()) + 1))
                 else:
                     pass
+    
+    '''
+    print('Facturas')
+    for a in range(len(facturas_correctas)):
+        print(facturas_correctas[a].getDia())
+        print(facturas_correctas[a].getReferencia())
+        print(facturas_correctas[a].getNitE())
+        print(facturas_correctas[a].getNitR())
+        print(facturas_correctas[a].getValor())
+        print(facturas_correctas[a].getIva())
+        print(facturas_correctas[a].getTotal())
+        print(facturas_correctas[a].getEstado())
+        print('---')
+
+    print('Errores')
+    for a in range(len(datos_salida)):        
+        print(datos_salida[a].getFecha(), 'fecha')
+        print(datos_salida[a].getErrorNE(), 'error NE')
+        print(datos_salida[a].getErrorNR(), 'error NR')
+        print(datos_salida[a].getIva(), 'iva')
+        print(datos_salida[a].getTotal(), 'total')
+        print(datos_salida[a].getDuplicadoRef(), 'ref duplicada')
+        print(datos_salida[a].getTotalFac(), 'total facturas')
+        print(datos_salida[a].getFacturasC(), 'facturas correctas')
+        print(datos_salida[a].getFacturasE(), 'factuas NIT_E diferentes')
+        print(datos_salida[a].getFacturasR(), 'factuas NIT_R diferentes')
+        for b in datos_salida[a].tamaño:
+            print(b.getDia(), 'tamaño')
+        print('---')
+    '''
 
 def Modulo11(valor, error, bandera):
     nit = []
@@ -282,7 +364,17 @@ def Aprobacion(fecha):
 #GFAFICAS
 @app.route('/Grafica', methods=['GET'])
 def ObtenerGrafica():
-    pass
+    global facturas_correctas
+    global datos_salida
+    Datos_Combobox = []
+    
+    for a in range(len(datos_salida)):
+        for b in datos_salida[a].tamaño:
+            objeto ={
+                'Fecha': b.getDia()
+            }
+            Datos_Combobox.append(objeto)
+    return (jsonify(Datos_Combobox))
 
 if __name__ == "__main__":    
     app.run(host = "0.0.0.0", port = 3000, debug = True)
