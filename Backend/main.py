@@ -257,12 +257,16 @@ def Modulo11(valor, error, bandera):
                 if aux_m == 8:
                     aux_m = 2
             sumatoria = 11 - sumatoria % 11        
-            if sumatoria < 10:            
-                if int(sumatoria) == int(ultimo_valor):
-                    bandera = True
-                else:
+            if sumatoria < 10:
+                if ultimo_valor == 'k' or ultimo_valor == 'K':
                     error += 1
                     bandera = False
+                else:
+                    if int(sumatoria) == int(ultimo_valor):
+                        bandera = True
+                    else:
+                        error += 1
+                        bandera = False
             elif sumatoria == 10:
                 if ultimo_valor == 'k' or ultimo_valor == 'K':
                     bandera = True
